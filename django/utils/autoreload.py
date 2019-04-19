@@ -387,7 +387,7 @@ class WatchmanReloader(BaseReloader):
                 logger.warning('Unable to watch root dir %s as neither it or its parent exist.', root)
                 return
             root = root.parent
-        result = self.client.query('watch-project', str(root.absolute()))
+        result = pywatchman.client(timeout=5.0).query('watch-project', str(root.absolute()))
         if 'warning' in result:
             logger.warning('Watchman warning: %s', result['warning'])
         logger.debug('Watchman watch-project result: %s', result)
